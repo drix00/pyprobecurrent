@@ -2,3 +2,4 @@ syntax: glob
 pyprobecurrent/__pycache__/
 pyProbeCurrent.egg-info/
 testdata/*
+*.pyc

@@ -50,6 +50,7 @@ def runSU8230():
     filenames.append("BeamCurrent_SU8230_Set04_20150203.txt")
     filenames.append("BeamCurrent_SU8230_Set05_20150204.txt")
     filenames.append("BeamCurrent_SU8230_Set06_20150206.txt")
+    filenames.append("BeamCurrent_SU8230_Set07_20150227.txt")
 
     path = r"D:\work\results\experiments\BeamCurrent\SU8230"
 
@@ -67,6 +68,8 @@ def createFigures(filenames, path):
         x = np.array(logFile.times_s)
         y = np.array(logFile.currents_nA)*(-1.0)
 
+        x = x/60.0/60.0
+
         plt.figure()
         plt.title(basename)
         windowSize = 60*10
@@ -82,7 +85,7 @@ def createFigures(filenames, path):
         plt.xlabel("Time (h)")
         plt.ylabel("Current (nA)")
 
-        figureFilepath = basepath + "_IvsT"
+        figureFilepath = basepath + "_IvsT_raw"
         if log:
             figureFilepath += "_Log"
         extension = '.png'
@@ -92,8 +95,8 @@ def createFigures(filenames, path):
         plt.close()
 
 def run():
-    runSU8000()
-    #runSU8230()
+    #runSU8000()
+    runSU8230()
 
 if __name__ == '__main__':  #pragma: no cover
     run()
