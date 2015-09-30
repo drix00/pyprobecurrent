@@ -21,7 +21,6 @@ import datetime
 # Third party modules.
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.signal as signal
 
 # Local modules.
 
@@ -31,6 +30,8 @@ from pyprobecurrent.log.su8230.exported_ras import getFlash, ETC_DATE, FlashPara
 
 # Globals and constants variables.
 path = r"D:\work\results\experiments\BeamCurrent\SU8230"
+graphic_path = r"D:\work\documents\labbooks\e-labbook\graphics\beamCurrent"
+
 hdf5_file = HDF5File(os.path.join(path, "ProbeCurrentSu8230.hdf5"), overwrite=False)
 
 timeWindows_s = [60.0, 120.0, 300.0, 600.0]
@@ -86,19 +87,19 @@ def analyze_set07():
 
 def _create_figure_raw(set_name, filename, log=False, min_max=None):
     logging.debug(filename)
-    filepath = os.path.join(path, filename)
+    filepath_data = os.path.join(path, filename)
 
-    x, y, startDateTime = hdf5_file.getData(set_name, filepath)
+    x, y, startDateTime = hdf5_file.getData(set_name, filepath_data)
     logging.debug(min(x))
     logging.debug(max(x))
 
     filename = "Ras_20150302_Emission.txt"
-    filepath = os.path.join(path, filename)
-    emissionData = read_emission(filepath)
+    filepath_emission = os.path.join(path, filename)
+    emissionData = read_emission(filepath_emission)
 
     filename = "Ras_20150302_Etc.txt"
-    filepath = os.path.join(path, filename)
-    flashData = getFlash(filepath)
+    filepath_etc = os.path.join(path, filename)
+    flashData = getFlash(filepath_etc)
     startDateTime = datetime.datetime.strptime(startDateTime, "%Y-%m-%dT%H:%M:%S")
 
     if min_max is not None:
@@ -130,7 +131,7 @@ def _create_figure_raw(set_name, filename, log=False, min_max=None):
 
     emissionCurrentEightyPercent_uA = emissionCurrents_uA[0] * 0.80
 
-    basepath, _extension = os.path.splitext(filepath)
+    basepath, _extension = os.path.splitext(filepath_data)
     basename = os.path.basename(basepath)
 
     x = x/60.0/60.0
@@ -176,11 +177,11 @@ def _create_figure_raw(set_name, filename, log=False, min_max=None):
     ax_f.set_xlabel("Time (h)")
     ax_f.set_ylabel("Current (nA)")
 
-    figureFilepath = basepath + "_IvsT"
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT")
     if log:
         figureFilepath += "_Log"
-    extension = '.png'
-    plt.savefig(figureFilepath+extension)
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
 
     plt.clf()
     plt.close()
@@ -301,9 +302,10 @@ def _create_figure_statistic(set_name, filename, min_max=None, timeWindow_s=60.0
     ax_f.set_xlabel("Time (h)")
     ax_f.set_ylabel("Current (nA)")
 
-    figureFilepath = basepath + "_IvsT_tw%i" % (timeWindow_s)
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT_tw%i" % (timeWindow_s))
     extension = '.png'
-    plt.savefig(figureFilepath+extension)
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
 
     plt.clf()
     plt.close()
@@ -345,9 +347,10 @@ def _create_figure_statistic(set_name, filename, min_max=None, timeWindow_s=60.0
     ax_f.set_xlabel("Time (h)")
     ax_f.set_ylabel("Std (%)")
 
-    figureFilepath = basepath + "_IvsT_stdPercentage_tw%i" % (timeWindow_s)
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT_stdPercentage_tw%i" % (timeWindow_s))
     extension = '.png'
-    plt.savefig(figureFilepath+extension)
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
 
     plt.clf()
     plt.close()
@@ -392,9 +395,11 @@ def _create_figure_statistic(set_name, filename, min_max=None, timeWindow_s=60.0
     ax_f.set_ylabel("Current (nA)")
 
     plt.legend(loc='best')
-    figureFilepath = basepath + "_IvsT_minmax_tw%i" % (timeWindow_s)
+
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT_minmax_tw%i" % (timeWindow_s))
     extension = '.png'
-    plt.savefig(figureFilepath+extension)
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
 
     plt.clf()
     plt.close()
@@ -436,9 +441,10 @@ def _create_figure_statistic(set_name, filename, min_max=None, timeWindow_s=60.0
     ax_f.set_xlabel("Time (h)")
     ax_f.set_ylabel("Range of values (%)")
 
-    figureFilepath = basepath + "_IvsT_ptp_tw%i" % (timeWindow_s)
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT_ptp_tw%i" % (timeWindow_s))
     extension = '.png'
-    plt.savefig(figureFilepath+extension)
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
 
     plt.clf()
     plt.close()
