@@ -21,7 +21,7 @@ import numpy as np
 import h5py
 
 # Local modules.
-import pyMcGill.experimental.NanoPico.LogFile as LogFile
+import pyprobecurrent.nanopico.LogFile as LogFile
 
 # Project modules
 
