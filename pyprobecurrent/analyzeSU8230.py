@@ -223,6 +223,7 @@ def _create_figure_statistic(set_name, filename, min_max=None, timeWindow_s=60.0
     filename = "Ras_20150302_Etc.txt"
     filepathFlash = os.path.join(path, filename)
     flashData = getFlash(filepathFlash)
+    
     startDateTime = datetime.datetime.strptime(startDateTime, "%Y-%m-%dT%H:%M:%S")
 
     if min_max is not None:
