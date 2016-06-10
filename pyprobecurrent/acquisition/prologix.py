@@ -72,10 +72,13 @@ class PrologixGpibUsbController(object):
     def init_controller(self):
         resource_manager = visa.ResourceManager()
         for resource_name in resource_manager.list_resources():
+            logging.info(resource_name)
             instrument = resource_manager.open_resource(resource_name)
             version = instrument.query("++ver")
+            logging.debug(version)
             if version.startswith("Prologix GPIB-USB Controller"):
                 self.gpib_usb = instrument
+                logging.info(resource_manager.resource_info(resource_name))
 
     def log_controller_configuration(self):
         commands = []
