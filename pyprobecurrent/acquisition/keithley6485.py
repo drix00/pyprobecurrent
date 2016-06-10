@@ -19,6 +19,7 @@ __license__ = "GPL 3"
 import logging
 
 # Third party modules.
+import pyvisa
 
 # Local modules.
 
@@ -36,7 +37,10 @@ class Keithley6485Picoammeter():
         self.controller = controller
         self.controller.gpib_usb.write("++addr 14")
         self.controller.gpib_usb.write("*RST")
-    
+        #self.controller.gpib_usb.write("status:preset")
+        self.controller.gpib_usb.write("*CLS")
+        #print(self.controller.gpib_usb.read().strip())
+
     def log_options(self):
         data = self.controller.gpib_usb.query("SYST:LRF?")
         logging.info("Line frequency: %s", data)
@@ -44,7 +48,7 @@ class Keithley6485Picoammeter():
         logging.info("Line frequency auto: %s", data)
         data = self.controller.gpib_usb.query("SYST:AZER?")
         logging.info("Autozero: %s", data)
-        
+
     def do_zero_correction(self):
         self.controller.gpib_usb.write("*RST")
         self.controller.gpib_usb.write("SYST:ZCH ON")
@@ -53,7 +57,7 @@ class Keithley6485Picoammeter():
         self.controller.gpib_usb.write("SYST:ZCOR:ACQ")
         self.controller.gpib_usb.write("SYST:ZCH OFF")
         self.controller.gpib_usb.write("SYST:ZCOR ON")
-        
+
     def do_one_reading(self):
         self.controller.gpib_usb.write("*RST")
         self.controller.gpib_usb.write("SYST:ZCH ON")
@@ -67,16 +71,18 @@ class Keithley6485Picoammeter():
         data = data.strip()
         logging.debug("Current: %s", data)
         return data
-        
-    def identification(self):
-        self.controller.gpib_usb.write("*IDN?")
-        data = self.controller.gpib_usb.ask("++read eoi")
-        data = data.strip()
-        logging.debug("Dataline:%s", data)
 
+    def identification(self):
+        try:
+            self.controller.gpib_usb.write("*IDN?")
+            data = self.controller.gpib_usb.ask("++read eoi")
+            data = data.strip()
+            logging.debug("Dataline:%s", data)
+        except pyvisa.errors.VisaIOError as message:
+            data = message.abbreviation
         return data
 
-    def query_errror_queue(self):
+    def query_error_queue(self):
         data = self.controller.gpib_usb.query("STAT:QUE?")
         data = data.strip()
         logging.debug("Error queue: %s", data)

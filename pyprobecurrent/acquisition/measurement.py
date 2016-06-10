@@ -30,19 +30,28 @@ from pyprobecurrent.acquisition.keithley6485 import Keithley6485Picoammeter
 
 def run():
     controller = PrologixGpibUsbController()
-    #controller.log_controller_configuration()
+    if controller.gpib_usb is None:
+        print("Controller not found.")
+        return
 
-    #message = controller.getInstrumentName(14)
-    #print(message)
+    controller.log_controller_configuration()
+    controller._logSrqState()
 
     picoammeter = Keithley6485Picoammeter(controller)
+
     message = picoammeter.identification()
+    if message.startswith("VI_ERROR_TMO"):
+        print("Picoammeter not found.")
+        return
     print(message)
-    message = picoammeter.query_errror_queue()
-    print(message)
-    message = picoammeter.mesure_current()
-    print(message)
+
+    #picoammeter.log_options()
+    #picoammeter.do_zero_correction()
+
+    #print(picoammeter.query_error_queue())
+    #print(picoammeter.do_one_reading())
 
 if __name__ == '__main__': #pragma: no cover
     logging.getLogger().setLevel(logging.INFO)
     run()
+    print("Done")
