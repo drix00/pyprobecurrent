@@ -25,7 +25,7 @@ import datetime
 import pyHendrixDemersTools.Files as Files
 
 # Project modules
-import pyMcGill.experimental.NanoPico.LogFile as LogFile
+import pyprobecurrent.nanopico.LogFile as LogFile
 
 # Globals and constants variables.
 

@@ -32,6 +32,8 @@ class LogFile(object):
 
         self._filepath = filepath
 
+        self._read(filepath)
+
     def _read(self, filepath):
         lines = open(filepath, 'r').readlines()
 
