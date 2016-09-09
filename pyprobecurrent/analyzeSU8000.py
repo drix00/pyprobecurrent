@@ -310,6 +310,118 @@ def run():
 
     plt.show()
 
+def run_201608():
+    import pyprobecurrent.nanopico.LogFile as LogFile
+
+    log = False
+    timeWindow_s = None
+
+    logging.info("run_201608")
+    #min_max=(1.733*60.0*60.0, 22.30*60.0*60.0)
+    min_max = None
+    path = r"D:\work\results\experiments\SU8000\beamCurrentMeasurement"
+
+    filename = "beamcurrent_20160831.txt"
+    logging.debug(filename)
+    filepath_data = os.path.join(path, filename)
+    logFile = LogFile.LogFile(filepath_data)
+    logFile._read(filepath_data)
+    start_time = logFile.start_time
+    x1 = np.array(logFile.times_s)
+    y1 = np.array(logFile.currents_nA)*(-1.0)
+    logging.info(min(x1))
+    logging.info(max(x1))
+
+    filename = "beamcurrent_20160901.txt"
+    logging.debug(filename)
+    filepath_data = os.path.join(path, filename)
+    logFile = LogFile.LogFile(filepath_data)
+    logFile._read(filepath_data)
+    start_time = logFile.start_time
+    x2 = np.array(logFile.times_s)
+    y2 = np.array(logFile.currents_nA)*(-1.0)
+    logging.info(min(x2))
+    logging.info(max(x2))
+
+    if timeWindow_s is not None:
+        numberArrays = len(x1)//timeWindow_s + 1
+        xMean = []
+        yMean = []
+
+        for xArray, yArray in zip(np.array_split(x1, numberArrays), np.array_split(y1, numberArrays)):
+            xMean.append(np.median(xArray))
+            yMean.append(np.mean(yArray))
+
+        x1 = np.array(xMean)
+        y1 = np.array(yMean)
+
+        numberArrays = len(x2)//timeWindow_s + 1
+        xMean = []
+        yMean = []
+
+        for xArray, yArray in zip(np.array_split(x2, numberArrays), np.array_split(y2, numberArrays)):
+            xMean.append(np.median(xArray))
+            yMean.append(np.mean(yArray))
+
+        x2 = np.array(xMean)
+        y2 = np.array(yMean)
+
+    startDateTime = datetime.datetime.strptime(start_time, "%Y-%m-%dT%H:%M:%S")
+
+    if min_max is not None:
+        xmin, xmax = min_max
+
+        if xmin > xmax:
+            xmin, xmax = xmax, xmin
+
+        mask_array = np.ma.masked_outside(x1, xmin, xmax)
+    else:
+        xmin = x1[0]
+        xmax = x1[-1]
+
+    basepath, _extension = os.path.splitext(filepath_data)
+    basename = os.path.basename(basepath)
+
+    x1 = x1/60.0/60.0
+    x2 = x2/60.0/60.0
+
+    fig, ax_f = plt.subplots()
+
+    plt.title(basename)
+    if log:
+        if min_max is not None:
+            ax_f.semilogy(x1[mask_array.mask], y1[mask_array.mask], '.', label="After bombardment")
+            ax_f.semilogy(x2[mask_array.mask], y2[mask_array.mask], '.', label="After flash")
+        else:
+            ax_f.semilogy(x1, y1, '.', label="After bombardment")
+            ax_f.semilogy(x2, y2, '.', label="After flash")
+    else:
+        if min_max is not None:
+            ax_f.plot(x1[~mask_array.mask], y1[~mask_array.mask], '.', label="After bombardment")
+            ax_f.plot(x2[~mask_array.mask], y2[~mask_array.mask], '.', label="After flash")
+        else:
+            ax_f.plot(x1, y1, '.', label="After bombardment")
+            ax_f.plot(x2, y2, '.', label="After flash")
+
+    ax_f.set_xlabel("Time (h)")
+    ax_f.set_ylabel("Current (nA)")
+
+    plt.legend()
+
+    figureFilepath = os.path.join(graphic_path, basename + "_IvsT")
+    if timeWindow_s is not None:
+        figureFilepath += "_tw%i" % (timeWindow_s)
+    if log:
+        figureFilepath += "_Log"
+    for extension in ['.png', '.pdf']:
+        plt.savefig(figureFilepath+extension)
+
+    #plt.clf()
+    #plt.close()
+
+    plt.show()
+
 if __name__ == '__main__':  #pragma: no cover
     logging.getLogger().setLevel(logging.INFO)
-    run()
+    #run()
+    run_201608()
