@@ -56,6 +56,21 @@ class LogFiles(object):
 
         return logFile
 
+    def read_all_log_files(self):
+        log_file = LogFile.LogFile()
+        for file_Date in sorted(self._logFileDates.keys()):
+            filename = self._logFileDates[file_Date]
+            logging.info("Log file name: %s", filename)
+
+            file_path = self._logFilepaths[filename]
+
+            log_file = LogFile.LogFile()
+            log_file.read(file_path)
+
+            log_file.add_items(log_file.logItems)
+
+        return log_file
+
     @property
     def path(self):
         return self._path
@@ -66,7 +81,3 @@ class LogFiles(object):
     @property
     def numberLogFiles(self):
         return len(self._logFilepaths)
-
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=None)
