@@ -22,6 +22,7 @@ import sqlite3
 # Third party modules.
 import pyodbc
 #import pypyodbc
+from nose import SkipTest
 
 # Local modules.
 
@@ -64,6 +65,8 @@ class Testras_database(unittest.TestCase):
 
         filepath = os.path.normpath(os.path.join("../../../testdata/su8230", "Ras_20150130b.mdb"))
         filepath = r"D:\work\codings\hendrix_demersBitbucket\pyprobecurrent\testdata\su8230\Ras_20150130b.mdb"
+        if not os.path.isfile(filepath):
+            raise SkipTest
         driver = 'DRIVER={Microsoft Access Driver (*.mdb)}; DBQ=%s' % filepath
         cnxn = pyodbc.connect(driver)
         #cnxn = pypyodbc.win_connect_mdb(filepath)

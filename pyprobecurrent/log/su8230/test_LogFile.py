@@ -45,6 +45,9 @@ class TestLogFile(unittest.TestCase):
 
         self.filepathNotFull = Files.getCurrentModulePath(__file__, "../../../testData/su8230/log/Sem065.log")
 
+        if not os.path.isfile(self.filepathNotFull):
+            raise SkipTest
+
     def tearDown(self):
         """
         Teardown method.
