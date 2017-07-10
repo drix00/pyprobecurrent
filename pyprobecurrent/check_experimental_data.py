@@ -23,7 +23,7 @@ import numpy as np
 import scipy.signal as signal
 
 # Local modules.
-import pyMcGill.experimental.NanoPico.LogFile as LogFile
+from pyprobecurrent.log.su8230.LogFile import LogFile
 
 # Project modules
 
@@ -63,7 +63,7 @@ def createFigures(filenames, path):
         basepath, _extension = os.path.splitext(filepath)
         basename = os.path.basename(basepath)
 
-        logFile = LogFile.LogFile(filepath)
+        logFile = LogFile(filepath)
         logFile._read(filepath)
         x = np.array(logFile.times_s)
         y = np.array(logFile.currents_nA)*(-1.0)
