@@ -70,7 +70,7 @@ setup(name="pyProbeCurrent",
 
       include_package_data=False, # Do not include test data
 
-      install_requires=[],
+      install_requires=['pyodbc'],
       setup_requires=['nose', 'coverage'],
 
       test_suite='nose.collector',
