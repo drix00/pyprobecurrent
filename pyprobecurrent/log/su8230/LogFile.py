@@ -34,7 +34,7 @@ class LogFile(object):
     def read(self, filepath):
         with open(filepath) as logFile:
             lineHeader = logFile.readline()
-            logging.info("Header: %s", lineHeader)
+            logging.debug("Header: %s", lineHeader)
 
             for line in logFile:
                 if line.strip() != "":
@@ -86,6 +86,95 @@ class LogFile(object):
             uniques.add((logItem.fromInstrument, logItem.toInstrument, logItem.code))
 
         return uniques
+
+    def unique_log_message(self):
+        uniques = set()
+        for logItem in self.logItems:
+            uniques.add(logItem.logMessage)
+
+        return uniques
+
+    def unique_log_command(self):
+        uniques = set()
+        for logItem in self.logItems:
+            uniques.add(logItem.command)
+
+        return uniques
+
+    def unique_log_command_number(self):
+        uniques = set()
+        for logItem in self.logItems:
+            uniques.add(logItem.commandNumber)
+
+        return uniques
+
+    def unique_log_message(self):
+        uniques = set()
+        for logItem in self.logItems:
+            uniques.add(logItem.logMessage)
+
+        return uniques
+
+    def unique_log_command_parameter(self):
+        uniques = set()
+        for logItem in self.logItems:
+            uniques.add(logItem.parameter)
+
+        return uniques
+
+    def print_unique_item(self):
+        if self.logItems:
+            logging.info("Number of lines: %i", self.numberLines)
+
+            uniqueInterv = self.uniqueInterv()
+            logging.info("Number of unique Interv: %i", len(uniqueInterv))
+
+            uniqueFI = self.uniqueFI()
+            logging.info("Number of unique from instrument: %i", len(uniqueFI))
+            logging.info("Unique from instruments: %s", uniqueFI)
+
+            uniqueTI = self.uniqueTI()
+            logging.info("Number of unique to instrument: %i", len(uniqueTI))
+            logging.info("Unique to instruments: %s", uniqueTI)
+
+            uniqueFITI = self.uniqueFITI()
+            logging.info("Number of unique from/to instrument: %i", len(uniqueFITI))
+            logging.info("Unique from/to instruments:")
+            for fi, ti in uniqueFITI:
+                logging.debug("                          : %s, %s", fi, ti)
+
+            uniqueCodes = self.uniqueCodes()
+            logging.info("Number of unique code: %i", len(uniqueCodes))
+            logging.info("Unique codes: %s", uniqueCodes)
+
+            uniqueFITICode = self.uniqueFITICode()
+            logging.info("Number of unique from/to instrument with code: %i", len(uniqueFITICode))
+            logging.info("Unique from/to instruments code:")
+            for fi, ti, code in uniqueFITICode:
+                logging.info("                          : %s, %s, %s", fi, ti, code)
+
+            unique_log_message = self.unique_log_message()
+            logging.info("Number of unique log messages: %i", len(unique_log_message))
+            logging.info("Unique log messages: %s", unique_log_message)
+
+            # unique_command = self.unique_log_command()
+            # logging.info("Number of unique commands: %i", len(unique_command))
+            # logging.info("Unique commands: %s", unique_command)
+            #
+            # unique_command_number = self.unique_log_command_number()
+            # logging.info("Number of unique command numberss: %i", len(unique_command_number))
+            # logging.info("Unique command numbers: %s", unique_command_number)
+            #
+            # unique_message = self.unique_log_message()
+            # logging.info("Number of unique commands: %i", len(unique_message))
+            # logging.info("Unique commands: %s", unique_message)
+            #
+            # unique_command_parameter = self.unique_log_command_parameter()
+            # logging.info("Number of unique command numberss: %i", len(unique_command_parameter))
+            # logging.info("Unique command numbers: %s", unique_command_parameter)
+
+    def add_items(self, new_log_items):
+        self.logItems.extend(new_log_items)
 
     @property
     def date(self):
