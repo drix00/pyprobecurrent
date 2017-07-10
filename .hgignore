@@ -4,3 +4,4 @@ pyProbeCurrent.egg-info/
 testdata/*
 *.pyc
 build
+.idea/
