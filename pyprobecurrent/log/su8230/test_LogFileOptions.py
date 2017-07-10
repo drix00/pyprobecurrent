@@ -43,6 +43,9 @@ class TestLogFileOptions(unittest.TestCase):
 
         self.filepath = Files.getCurrentModulePath(__file__, "../../../testData/su8230/log/SemLog.xml")
 
+        if not os.path.isfile(self.filepath):
+            raise SkipTest
+
     def tearDown(self):
         """
         Teardown method.

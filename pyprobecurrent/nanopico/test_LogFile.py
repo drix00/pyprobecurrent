@@ -20,6 +20,7 @@ import os.path
 import datetime
 
 # Third party modules.
+from nose import SkipTest
 
 # Local modules.
 import pyHendrixDemersTools.Files as Files
@@ -42,6 +43,9 @@ class TestLogFile(unittest.TestCase):
         unittest.TestCase.setUp(self)
 
         self._dataPath = Files.getCurrentModulePath(__file__, "../../testData/nanopico")
+
+        if not os.path.isdir(self._dataPath):
+            raise SkipTest
 
     def tearDown(self):
         """

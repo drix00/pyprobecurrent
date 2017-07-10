@@ -21,6 +21,7 @@ import sqlite3
 
 # Third party modules.
 import pyodbc
+from nose import SkipTest
 
 # Local modules.
 
@@ -76,6 +77,9 @@ class Testras_database(unittest.TestCase):
         """
 
         filepath = os.path.normpath(os.path.join("../testdata", "Ras_20150123.odb"))
+        if not os.path.isfile(filepath):
+            raise SkipTest
+
         cnxn = sqlite3.connect(filepath)
         cursor = cnxn.cursor()
         logging.info(cursor.description)
