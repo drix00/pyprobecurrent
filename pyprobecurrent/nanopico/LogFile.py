@@ -21,6 +21,7 @@ import datetime
 # Local modules.
 
 # Project modules
+from pyprobecurrent import get_current_module_path
 
 # Globals and constants variables.
 
@@ -120,11 +121,10 @@ class LogFile(object):
         return len(self.currents_nA)
 
 def run():
-    import pyHendrixDemersTools.Files as Files
     import os.path
     import matplotlib.pyplot as plt
 
-    dataPath = Files.getCurrentModulePath(__file__, "../../testData/nanopico")
+    dataPath = get_current_module_path(__file__, "../../testData/nanopico")
     #filepath = os.path.join(dataPath, "testCurrent_10s.txt")
     filepath = os.path.join(dataPath, "testCurrent_1s.txt")
     #filepath = os.path.join(dataPath, "testCurrent.txt")
@@ -141,6 +141,6 @@ def run():
 
     plt.show()
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=run)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

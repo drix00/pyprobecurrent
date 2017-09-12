@@ -24,11 +24,10 @@ from scipy.fftpack import fft
 import scipy.signal as signal
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
-import pyHendrixDemersTools.Graphics as Graphics
 
 # Project modules
 import pyMcGill.experimental.NanoPico.LogFile as LogFile
+from pyprobecurrent import get_current_module_path, findAllFiles, getLabbookMcGillPath
 
 # Globals and constants variables.
 
@@ -38,7 +37,7 @@ def analyzeAllBeamCurrentMeasurement():
 
     for folder in folders:
         dataPath = folder
-        for filepath in Files.findAllFiles(dataPath, "*.txt"):
+        for filepath in findAllFiles(dataPath, "*.txt"):
             logging.info(filepath)
             _createFigures(filepath)
 
@@ -168,8 +167,8 @@ def runAnalyzeCurrent():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrentSU8230"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.png', '.pdf']:
@@ -205,8 +204,8 @@ def runAnalyzeFlashing():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-#    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-#    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+#    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+#    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
 #    basename = "GraphicBeamCurrent"
 #    figureFilepath = os.path.join(graphicPath, basename)
 #    for extension in ['.pdf']:
@@ -238,8 +237,8 @@ def runAnalyzeFlashingTime():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrent_FlashTime12h"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.pdf']:
@@ -269,25 +268,25 @@ def runAnalyzeFlashingTime():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrent_FlashTime16h"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.pdf']:
         plt.savefig(figureFilepath+extension)
 
-def run():
-    Graphics.setDefaultDisplay()
 
-    #analyzeAllBeamCurrentMeasurement()
+def run():
+
+    # analyzeAllBeamCurrentMeasurement()
 
     runAnalyzeCurrent()
-    #runAnalyzeFlashing()
+    # runAnalyzeFlashing()
 
-    #runAnalyzeFlashingTime()
+    # runAnalyzeFlashingTime()
 
     plt.show()
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=run)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

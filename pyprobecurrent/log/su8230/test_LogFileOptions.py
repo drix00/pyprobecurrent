@@ -22,10 +22,10 @@ import os.path
 from nose import SkipTest
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
 
 # Project modules
 import pyprobecurrent.log.su8230.LogFileOptions as LogFileOptions
+from pyprobecurrent import get_current_module_path
 
 # Globals and constants variables.
 
@@ -41,7 +41,7 @@ class TestLogFileOptions(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self.filepath = Files.getCurrentModulePath(__file__, "../../../testData/su8230/log/SemLog.xml")
+        self.filepath = get_current_module_path(__file__, "../../../testData/su8230/log/SemLog.xml")
 
         if not os.path.isfile(self.filepath):
             raise SkipTest
@@ -88,7 +88,7 @@ class TestLogFileOptions(unittest.TestCase):
 
         #self.fail("Test if the testcase is working.")
 
-if __name__ == '__main__':  #pragma: no cover
-    logging.getLogger().setLevel(logging.DEBUG)
-    from pyHendrixDemersTools.Testings import runTestModuleWithCoverage
-    runTestModuleWithCoverage(__file__)
+
+if __name__ == '__main__':  # pragma: no cover
+    import nose
+    nose.runmodule()

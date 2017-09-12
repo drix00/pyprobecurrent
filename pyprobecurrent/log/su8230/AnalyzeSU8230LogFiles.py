@@ -20,16 +20,17 @@ import os.path
 # Third party modules.
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
+from pyprobecurrent import get_current_module_path
 
 # Project modules
 from pyprobecurrent.log.su8230.LogFiles import LogFiles
 
 # Globals and constants variables.
 
+
 def runTestFile():
-    #filepath = Files.getCurrentModulePath(__file__, "../../../testData/su8230/log/Sem065.log")
-    path = Files.getCurrentModulePath(__file__, "../../../testData/su8230/log/")
+    # filepath = get_current_module_path(__file__, "../../../testData/su8230/log/Sem065.log")
+    path = get_current_module_path(__file__, "../../../testData/su8230/log/")
 
     if os.path.isdir(path):
         logging.info("Path exist: %s", path)

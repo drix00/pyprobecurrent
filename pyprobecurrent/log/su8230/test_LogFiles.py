@@ -53,7 +53,7 @@ class TestLogFiles(unittest.TestCase):
         #self.fail("Test if the testcase is working.")
         self.assertTrue(True)
 
-if __name__ == '__main__':  #pragma: no cover
-    logging.getLogger().setLevel(logging.DEBUG)
-    from pyHendrixDemersTools.Testings import runTestModuleWithCoverage
-    runTestModuleWithCoverage(__file__)
+
+if __name__ == '__main__':  # pragma: no cover
+    import nose
+    nose.runmodule()

@@ -22,7 +22,7 @@ import os.path
 from nose import SkipTest
 
 # Local modules.
-from pyHendrixDemersTools.Files import getCurrentModulePath
+from pyprobecurrent import get_current_module_path
 
 # Project modules
 from pyprobecurrent.log.su8230.exported_ras import read_etc, getFlash, FlashParameters, read_emission, uniqueParameter
@@ -41,7 +41,7 @@ class Testexported_ras(unittest.TestCase):
         Setup method.
         """
 
-        path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+        path = get_current_module_path(__file__, "../../../testdata/su8230")
         filename = "Ras_20150302_Etc.txt"
         self._filepath = os.path.join(path, filename)
         if not os.path.isfile(self._filepath):
@@ -69,7 +69,7 @@ class Testexported_ras(unittest.TestCase):
         """
         Tests for method `read_etc`.
         """
-        path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+        path = get_current_module_path(__file__, "../../../testdata/su8230")
         filename = "Ras_20150302_Etc.txt"
         filepath = os.path.join(path, filename)
         if not os.path.isfile(filepath):
@@ -140,7 +140,7 @@ class Testexported_ras(unittest.TestCase):
         Tests for method `read_emission`.
         """
 
-        path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+        path = get_current_module_path(__file__, "../../../testdata/su8230")
         filename = "Ras_20150302_Emission.txt"
         filepath = os.path.join(path, filename)
         if not os.path.isfile(filepath):
@@ -157,7 +157,7 @@ class Testexported_ras(unittest.TestCase):
         Tests for method `uniqueEtcCommand`.
         """
 
-        path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+        path = get_current_module_path(__file__, "../../../testdata/su8230")
         filename = "Ras_20150302_Emission.txt"
         filepath = os.path.join(path, filename)
         if not os.path.isfile(filepath):

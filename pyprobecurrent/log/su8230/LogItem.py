@@ -199,6 +199,6 @@ class LogItem(object):
     def parameter(self, parameter):
         self._value[LOG_ITEM_PARAMETER] = parameter
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=None)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

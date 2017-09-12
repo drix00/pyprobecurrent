@@ -23,10 +23,11 @@ import datetime
 from nose import SkipTest
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
+
 
 # Project modules
 import pyprobecurrent.nanopico.LogFile as LogFile
+from pyprobecurrent import get_current_module_path
 
 # Globals and constants variables.
 
@@ -42,7 +43,7 @@ class TestLogFile(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self._dataPath = Files.getCurrentModulePath(__file__, "../../testData/nanopico")
+        self._dataPath = get_current_module_path(__file__, "../../testData/nanopico")
 
         if not os.path.isdir(self._dataPath):
             raise SkipTest

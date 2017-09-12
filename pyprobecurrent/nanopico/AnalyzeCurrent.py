@@ -24,11 +24,10 @@ from scipy.fftpack import fft
 import scipy.signal as signal
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
-import pyHendrixDemersTools.Graphics as Graphics
 
 # Project modules
 import pyMcGill.experimental.NanoPico.LogFile as LogFile
+from pyprobecurrent import get_current_module_path, findAllFiles, getResultsMcGillPath, getLabbookMcGillPath
 
 # Globals and constants variables.
 
@@ -45,9 +44,9 @@ def analyzeAllBeamCurrentMeasurement():
     folders.append(r"experimental\McGill\su8000\hdemers\20120428\beamCurrent")
 
     for folder in folders:
-        configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-        dataPath = Files.getResultsMcGillPath(configurationFilepath, folder)
-        for filepath in Files.findAllFiles(dataPath, "*.txt"):
+        configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+        dataPath = getResultsMcGillPath(configurationFilepath, folder)
+        for filepath in findAllFiles(dataPath, "*.txt"):
             logging.info(filepath)
             _createFigures(filepath)
 
@@ -122,8 +121,8 @@ def _createFigureResidual(filepath):
     plt.close()
 
 def _get20120410Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120410")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120410")
     filename = "RightAfterFlashing_11h.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -136,8 +135,8 @@ def _get20120410Data():
     return x, y
 
 def _get20120411Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120411")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120411")
     filename = "2hAfterFlashing_10h.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -150,8 +149,8 @@ def _get20120411Data():
     return x, y
 
 def _get20120414Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120414")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120414")
     filename = "AfterFEBombardmentFlashing.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -164,8 +163,8 @@ def _get20120414Data():
     return x, y
 
 def _get20120420Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120420")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120420")
     filename = "AfterFlashing.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -178,8 +177,8 @@ def _get20120420Data():
     return x, y
 
 def _get20120427Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120427")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120427")
     filename = "20keVIe20.7uA.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -192,8 +191,8 @@ def _get20120427Data():
     return x, y
 
 def _get20120428Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120428\beamCurrent")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120428\beamCurrent")
     filename = "5h30AfterFlash_25keV.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -206,8 +205,8 @@ def _get20120428Data():
     return x, y
 
 def _get20121110Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\BeamCurrents\FlashingTimeoutSetting")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\BeamCurrents\FlashingTimeoutSetting")
     filename = "BeamCurrent_20121110.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -220,8 +219,8 @@ def _get20121110Data():
     return x, y
 
 def _get20121111Data():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\BeamCurrents\FlashingTimeoutSetting")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\BeamCurrents\FlashingTimeoutSetting")
     filename = "BeamCurrent_20121111.txt"
 
     filepath = os.path.join(dataPath, filename)
@@ -267,8 +266,8 @@ def runAnalyzeCurrent():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrent"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.png', '.pdf']:
@@ -304,8 +303,8 @@ def runAnalyzeFlashing():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-#    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-#    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+#    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+#    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
 #    basename = "GraphicBeamCurrent"
 #    figureFilepath = os.path.join(graphicPath, basename)
 #    for extension in ['.pdf']:
@@ -337,8 +336,8 @@ def runAnalyzeFlashingTime():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrent_FlashTime12h"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.pdf']:
@@ -368,8 +367,8 @@ def runAnalyzeFlashingTime():
     ax2.set_xlim((xMin_s/60.0/60.0, xMax_s/60.0/60.0))
     ax2.set_xlabel("Time (h)")
 
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGillOld.cfg")
-    graphicPath = Files.getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGillOld.cfg")
+    graphicPath = getLabbookMcGillPath(configurationFilepath, "graphics/beamCurrent");
     basename = "GraphicBeamCurrent_FlashTime16h"
     figureFilepath = os.path.join(graphicPath, basename)
     for extension in ['.pdf']:
@@ -386,6 +385,5 @@ def run():
     plt.show()
 
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=run)
+if __name__ == '__main__':  # pragma: no cover
+    run()

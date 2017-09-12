@@ -130,11 +130,11 @@ def uniqueParameter(parameterData, parameter_name):
     return parameterSet
 
 def runFlash():
-    from pyHendrixDemersTools.Files import getCurrentModulePath
+    from pyprobecurrent import get_current_module_path
     import os.path
     import matplotlib.pyplot as plt
 
-    path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+    path = get_current_module_path(__file__, "../../../testdata/su8230")
     filename = "Ras_20150302_Etc.txt"
     filepath = os.path.join(path, filename)
 
@@ -179,11 +179,11 @@ def runFlash():
     plt.show()
 
 def run():
-    from pyHendrixDemersTools.Files import getCurrentModulePath
+    from pyprobecurrent import get_current_module_path
     import os.path
     import matplotlib.pyplot as plt
 
-    path = getCurrentModulePath(__file__, "../../../testdata/su8230")
+    path = get_current_module_path(__file__, "../../../testdata/su8230")
     filename = "Ras_20150302_Emission.txt"
     filepath = os.path.join(path, filename)
 

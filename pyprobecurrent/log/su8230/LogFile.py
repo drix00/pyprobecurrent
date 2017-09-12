@@ -194,6 +194,6 @@ class LogFile(object):
     def logItems(self, logItems):
         self._logItems = logItems
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=None)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

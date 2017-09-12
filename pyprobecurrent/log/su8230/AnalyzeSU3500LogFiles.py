@@ -119,10 +119,11 @@ def analyze20141026():
             for fi, ti, code in uniqueFITICode:
                 logging.info("                          : %s, %s, %s", fi, ti, code)
 
+
 def run():
-    #analyze20140502()
+    # analyze20140502()
     analyze20141026()
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=run)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

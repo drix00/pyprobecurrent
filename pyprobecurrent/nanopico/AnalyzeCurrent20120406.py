@@ -20,16 +20,16 @@ import os.path
 import matplotlib.pyplot as plt
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
 
 # Project modules
 import pyMcGill.experimental.NanoPico.LogFile as LogFile
+from pyprobecurrent import get_current_module_path, getResultsMcGillPath
 
 # Globals and constants variables.
 
 def runAnalyzeCurrent20120406():
-    configurationFilepath = Files.getCurrentModulePath(__file__, "../../pyMcGill.cfg")
-    dataPath = Files.getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120406\current")
+    configurationFilepath = get_current_module_path(__file__, "../../pyMcGill.cfg")
+    dataPath = getResultsMcGillPath(configurationFilepath, r"experimental\McGill\su8000\hdemers\20120406\current")
     filenames = ["20120406_4keV_30uA_H.txt", "20120406_4keV_30uA_N.txt"]
 
     for filename in filenames:
@@ -57,6 +57,6 @@ def run():
 
     plt.show()
 
-if __name__ == '__main__': #pragma: no cover
-    import pyHendrixDemersTools.Runner as Runner
-    Runner.Runner().run(runFunction=run)
+
+if __name__ == '__main__':  # pragma: no cover
+    run()

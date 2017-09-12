@@ -20,10 +20,10 @@ import logging
 # Third party modules.
 
 # Local modules.
-import pyHendrixDemersTools.Files as Files
 
 # Project modules
 import pyprobecurrent.log.su8230.LogFile as LogFile
+from pyprobecurrent import findAllFiles
 
 # Globals and constants variables.
 
@@ -36,7 +36,7 @@ class LogFiles(object):
 
     def findLogFiles(self):
         patterns = "Sem*.log"
-        for filepath in Files.findAllFiles(self.path, patterns):
+        for filepath in findAllFiles(self.path, patterns):
             filename = os.path.basename(filepath)
             basename, _extension = os.path.splitext(filename)
             logging.debug(basename)
