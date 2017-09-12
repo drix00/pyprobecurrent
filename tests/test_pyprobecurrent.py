@@ -12,8 +12,7 @@ Tests for `pyprobecurrent` module.
 import sys
 import unittest
 
-from pyprobecurrent import pyprobecurrent
-
+import pyprobecurrent
 
 
 class TestPyprobecurrent(unittest.TestCase):

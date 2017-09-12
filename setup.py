@@ -79,7 +79,8 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'pyodbc'
+    'pyodbc',
+    "matplotlib"
 ]
 
 test_requirements = [
