@@ -1,11 +1,29 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-# Script information for the file.
-__author__ = "Hendrix Demers"
-__email__ = "hendrix.demers@mail.mcgill.ca"
-__version__ = "0.1"
-__copyright__ = "Copyright (c) 2015 Hendrix Demers"
-__license__ = "GPL v3"
+"""
+.. py:currentmodule:: setup.py
+
+.. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
+
+SEtup project for deplyement on pypi
+"""
+
+###############################################################################
+# Copyright 2017 Hendrix Demers
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+###############################################################################
 
 # Standard library modules.
 import os
@@ -17,7 +35,11 @@ from setuptools import setup, find_packages
 
 # Local modules.
 
+# Project modules.
+from pyprobecurrent import __version__
+
 # Globals and constants variables.
+
 
 class TestDataCommand(Command):
 
@@ -49,32 +71,68 @@ class TestDataCommand(Command):
                     arcname = os.path.relpath(filename, basepath)
                     z.write(filename, arcname)
 
-setup(name="pyProbeCurrent",
-      version='0.1',
-      url='',
-      description="Project to analyze probe current measurement on Hitachi SEMs.",
-      author="Hendrix Demers",
-      author_email="hendrix.demers@mail.mcgill.ca",
-      license="LGPL v3",
-      classifiers=['Development Status :: 4 - Beta',
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+    history = history_file.read()
+
+requirements = [
+    'pyodbc'
+]
+
+test_requirements = [
+    'nose', 'coverage'
+]
+
+description = "Project to analyze probe current measurement on Hitachi SEMs."
+# long_description = readme + '\n\n' + history
+long_description = """
+Project to analyze probe current measurement on Hitachi SEMs.
+"""
+
+packages = find_packages()
+
+setup(
+    name="pyProbeCurrent",
+    version=__version__,
+    url='https://github.com/drix00/pyprobecurrent',
+    description=description,
+    long_description=long_description,
+    author="Hendrix Demers",
+    author_email="hendrix.demers@mail.mcgill.ca",
+    license="Apache Software License 2.0",
+    classifiers=['Development Status :: 4 - Beta',
                    'Intended Audience :: Developers',
                    'Intended Audience :: Science/Research',
-                   'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
-                   'Natural Language :: English',
+                 'License :: OSI Approved :: Apache Software License',
+                 'Natural Language :: English',
                    'Programming Language :: Python',
-                   'Operating System :: OS Independent',
+                 "Programming Language :: Python :: 2",
+                 'Programming Language :: Python :: 2.6',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3',
+                 'Programming Language :: Python :: 3.3',
+                 'Programming Language :: Python :: 3.4',
+                 'Programming Language :: Python :: 3.5',
+                 'Programming Language :: Python :: 3.6',
+                 'Operating System :: OS Independent',
                    'Topic :: Scientific/Engineering',
                    'Topic :: Scientific/Engineering :: Physics'],
 
-      packages=find_packages(),
+    packages=packages,
+    package_dir={'pyprobecurrent':
+                     'pyprobecurrent'},
 
-      include_package_data=False, # Do not include test data
+    include_package_data=False,  # Do not include test data
 
-      install_requires=['pyodbc'],
-      setup_requires=['nose', 'coverage'],
+    install_requires=requirements,
+    setup_requires=['nose', 'coverage'],
 
-      test_suite='nose.collector',
+    test_suite='nose.collector',
+    tests_require=test_requirements,
 
-      cmdclass={'zip_testdata': TestDataCommand},
+    cmdclass={'zip_testdata': TestDataCommand},
 )
 
